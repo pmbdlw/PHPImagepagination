@@ -61,6 +61,20 @@ class PHPImagepagination
         return $this->totalPages;
     }
 
+    public function GetPrePage(){
+        if($this->pageIndex > 1){
+            return $this->pageIndex - 1;
+        }
+        return 1;
+    }
+
+    public function GetNextPage(){
+        if($this->pageIndex < $this->totalPages){
+            return  $this->pageIndex + 1;
+        }
+        return $this->totalPages;
+    }
+
     public function GetFiles()
     {
         $currentFiles = array();
