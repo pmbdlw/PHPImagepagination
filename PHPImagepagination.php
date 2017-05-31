@@ -81,6 +81,9 @@ class PHPImagepagination
         $page = $this->pageIndex - 1;
         $start = $this->pageSize*$page;
         $end = ($page+1)*$this->pageSize;
+        if(empty($this->allFiles)){
+            $end = 0;
+        }
         if($this->IsLastPage() && ($this->recordCount-1 < $end)){
             $end = $this->recordCount - 1;
         }
@@ -107,15 +110,20 @@ class PHPImagepagination
     private function GetFilesByPath()
     {
         if (empty($this->filePath)) {
-            return  array();
+            throw new Exception("Your filePath can not be empty.", 1);
         }
         if (!is_dir($this->filePath)) {
             throw new Exception("Your filePath is not a directory.", 1);
         }
         $files = scandir($this->filePath);
         if (empty($files)) {
-            throw new Exception("The file folder is empty.", 1);
+            $this->allFiles = array();
+            return;
         }
         $this->allFiles = array_values(array_diff($files, array('.','..','.DS_Store')));
+        if(empty($this->allFiles)){
+            $this->allFiles = array();
+            return;
+        }
     }
 }
