@@ -85,7 +85,7 @@ class PHPImagepagination
             $end = 0;
         }
         if($this->IsLastPage() && ($this->recordCount-1 < $end)){
-            $end = $this->recordCount - 1;
+            $end = $this->recordCount;
         }
         for ($i=$start; $i<$end; $i++) {
             array_push($currentFiles, $this->allFiles[$i]);
